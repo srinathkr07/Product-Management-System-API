@@ -12,6 +12,8 @@ https://app.swaggerhub.com/apis/srinathkr07/ProductManagementSystem/1.0.0#/
 ## Endpoints
 
 ### product
+| Endpoint | Request Method | Description |
+| --- | --- | --- |
 | /product | GET | To get the list of products |
 | /product | POST | To add a new product to the list of products |
 | /product/{id} | GET | To get product details based on Product ID |
