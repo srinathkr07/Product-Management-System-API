@@ -1,0 +1,426 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Product Management System
+  description: An Open API Specification (OAS) for Product Management System. This API can be used for all kinds of products. The data is broken down into mainly three collections - product, store and user. Endpoints have been written to perform basic operations like GET, PUT, POST and DELETE operations.
+  
+# host: localhost:10010
+
+# basePath: /
+
+# schemes:
+#   - http
+#   - https
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+  
+tags:
+  - name: "product"
+    description: "Products"
+    
+  - name: "store"
+    description: "Orders"
+    
+  - name: "user"
+    description: "User Operations" 
+  
+paths:
+  /product:
+
+    get:
+      tags:
+      - "product"
+      description: "Get the list of products"
+      
+      responses:
+        "200":
+          description: "List of products:"
+          schema:
+            $ref: "#/definitions/GetProductsListResponse"
+        default:
+          description: Error!
+    
+    post:
+      tags:
+      - "product"
+      description: Add a new product to the list of products
+      
+      parameters:
+        - name: details
+          description: Properties of product
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Product"
+            
+      responses:
+        "200":
+          description: Success!
+        default:
+          description: Error!
+  
+  /product/{id}:
+
+    get:
+      tags:
+      - "product"
+      description: Get product based on ID
+      
+      parameters:
+        - name: id
+          type: string
+          in: path
+          required: true
+          
+      responses:
+        "200":
+          description: Success!
+          schema:
+            $ref: "#/definitions/Product"
+        default:
+          description: Invalid Product ID!
+            
+    put:
+      tags:
+      - "product"
+      description: Update details of a product
+      
+      parameters:
+        - name: id
+          description: Product ID
+          in: path
+          type: string
+          required: true
+          
+        - name: Details
+          description: Details of the Product
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Product"
+            
+      responses:
+        "200":
+          description: Success!
+        default:
+          description: Error!
+            
+    delete:
+      tags:
+      - "product"
+      description: Delete a product
+      
+      parameters:
+        - name: id
+          description: Product ID
+          type: string
+          in: path
+          required: true
+          
+      responses:
+        "200":
+          description: Success!
+        default:
+          description: Error!
+  
+  /user:
+    post:
+      tags:
+      - "user"
+      description: Create a new user
+    
+      parameters:
+      - in: "body"
+        name: "details"
+        description: New user details
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+          
+      responses:
+        "200":
+          description: Success!
+        default:
+          description: Error!
+  
+  /store/order:
+    post:
+      tags:
+      - "store"
+      description: "Place a product order"
+      
+      parameters:
+      - in: "body"
+        name: "details"
+        required: true
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        200:
+          description: "Order successfully placed!"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Invalid Order!"
+          
+  /store/order/{orderId}:
+    get:
+      tags:
+      - "store"
+      description: "Find order by Order ID"
+     
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "Order ID"
+        required: true
+        type: "integer"
+        maximum: 10.0
+        minimum: 1.0
+        format: "int64"
+      responses:
+        200:
+          description: "Successful operation!"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Invalid Order ID!"
+        404:
+          description: "Order not found!"
+          
+    delete:
+      tags:
+      - "store"
+      description: "Delete purchase order by ID"
+      
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: Order ID
+        required: true
+        type: number
+        
+      responses:
+        400:
+          description: "Invalid Order ID!"
+        404:
+          description: "Order not found!"
+  
+  /user/login:
+    get:
+      tags:
+      - "user"
+      description: "User login"
+      
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "Username"
+        required: true
+        type: "string"
+        
+      - name: "password"
+        in: "query"
+        description: "Password"
+        required: true
+        type: "string"
+        
+      responses:
+        200:
+          description: "Successful operation!"
+          schema:
+            type: string
+        400:
+          description: "Invalid username/password!"
+          
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      description: "Logs out logged in user"
+      
+      responses:
+        default:
+          description: "Successful operation!"
+          
+  /user/{username}:
+    get:
+      tags:
+      - "user"
+      description: "Get user by username"
+      
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "Username"
+        required: true
+        type: "string"
+        
+      responses:
+        200:
+          description: "Successful operation!"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid username!"
+        404:
+          description: "User not found!"
+          
+    put:
+      tags:
+      - "user"
+      description: "Update user details"
+      
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "Username"
+        required: true
+        type: "string"
+        
+      - in: "body"
+        name: "body"
+        description: "User "
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+          
+      responses:
+        400:
+          description: "Invalid user!"
+        404:
+          description: "User not found!"
+          
+    delete:
+      tags:
+      - "user"
+      description: "Delete user"
+    
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "Username"
+        required: true
+        type: "string"
+        
+      responses:
+        400:
+          description: "Invalid username!"
+        404:
+          description: "User not found!"
+
+definitions:
+
+  Product:
+    type: object
+    properties:
+      PId:
+        type: string
+        description: ID of the product
+      Name:
+        type: string
+        description: Name of the product
+      DateOfManufacture:
+        type: string
+        format: date
+        description: Date of manufacture of the product
+      Category:
+        type: string
+        description: Category of the product
+      Price:
+        type: number
+        description: Price of the product
+      Status:
+        type: "string"
+        description: Product status
+        enum:
+        - "Available"
+        - "Sold"
+      
+    required:
+      - PId
+      - Name
+      - DateOfManufacture
+      - Category
+      - Price
+      - Status
+  
+  GetProductsListResponse:
+    required:
+      - products
+    properties:
+      products:
+        type: array
+        items: 
+          type: object
+          properties:
+            PId:
+              type: string
+            Name:
+              type: string
+            DateOfManufacture:
+              type: string
+              format: date
+            Type:
+              type: string
+            Price:
+              type: number
+            Status:
+              type: string
+              enum: 
+              - "Available"
+              - "Sold"
+  
+  Order:
+    type: "object"
+    properties:
+      OId:
+        type: string
+      PId:
+        type: string
+      UId:
+        type: string
+      Quantity:
+        type: number
+      ShipDate:
+        type: "string"
+        format: "date"
+      Status:
+        type: "string"
+        description: "Order Status"
+        enum:
+        - "Placed"
+        - "Approved"
+        - "Delivered"
+      Complete:
+        type: "boolean"
+        default: false
+  
+  User:
+    type: object
+    properties:
+      UId:
+        type: string
+      Username:
+        type: string
+      FirstName:
+        type: string
+      LastName:
+        type: string
+      Email:
+        type: string
+      Password:
+        type: string
+      Phone:
+        type: string
+        
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /srinathkr07/ProductManagementSystem/1.0.0
+schemes:
+ - https
+ - http
