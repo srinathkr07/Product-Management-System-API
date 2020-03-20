@@ -9,9 +9,9 @@ Description for the API specification can be found here:
 And, the API specification can be found here: 
 - https://app.swaggerhub.com/apis/srinathkr07/ProductManagementSystem/1.0.0#/
 
-## Endpoints
+## Endpoints:
 
-### product
+### product-
 
 | Endpoint | Request Method | Description |
 | --- | --- | --- |
@@ -21,7 +21,7 @@ And, the API specification can be found here:
 | /product/{id} | PUT | To update the details of an existing product, based on Product ID |
 | /product/{id} | DELETE | To delete a product based on Product ID |
 
-### store
+### store-
 
 | Endpoint | Request Method | Description |
 | --- | --- | --- |
@@ -29,7 +29,7 @@ And, the API specification can be found here:
 | /store/order/{orderId} | GET | To find a product order details based on Order ID |
 | /store/order/{orderId} | DELETE | To delete a product order details based on Order ID |
 
-### user
+### user-
 
 | Endpoint | Request Method | Description |
 | --- | --- | --- |
@@ -40,9 +40,9 @@ And, the API specification can be found here:
 | /user/{username} | PUT | To update the details of an existing user, based on username |
 | /user/{username} | DELETE | To delete a user based on username |
 
-## Models
+## Models:
 
-### Product
+### Product-
 
 | Detail | Datatype | Description |
 | --- | --- | --- |
@@ -53,7 +53,7 @@ And, the API specification can be found here:
 | Price | number | Price of the product |
 | Status | Enum | Status of the product i.e Available and Sold |
 
-### User
+### User-
 
 | Detail | Datatype | Description |
 | --- | --- | --- |
@@ -65,7 +65,7 @@ And, the API specification can be found here:
 | Password | string | Password of the user's account |
 | Phone | string | Phone number of the user |
 
-### Order
+### Order-
 
 | Detail | Datatype | Description |
 | --- | --- | --- |
